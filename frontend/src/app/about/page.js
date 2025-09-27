@@ -40,7 +40,7 @@ export default function About() {
         {
             icon: '🎯',
             title: 'Innovation First',
-            description: 'We push the boundaries of what\'s possible with AI technology.'
+            description: 'We push the boundaries of what&apos;s possible with AI technology.'
         },
         {
             icon: '🤝',
@@ -69,7 +69,7 @@ export default function About() {
                             About Our Mission
                         </h1>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                            We're building the future of AI assistance, creating technology that understands,
+                            We&apos;re building the future of AI assistance, creating technology that understands,
                             adapts, and empowers people to achieve more than they ever thought possible.
                         </p>
                     </div>
@@ -90,11 +90,11 @@ export default function About() {
                                 </p>
                                 <p className="mb-6">
                                     Our team of researchers, engineers, and designers came together from leading tech companies and universities,
-                                    united by the belief that AI should be accessible, ethical, and genuinely helpful. We've spent countless
-                                    hours refining our technology to ensure it's not just smart, but wise.
+                                    united by the belief that AI should be accessible, ethical, and genuinely helpful. We&apos;ve spent countless
+                                    hours refining our technology to ensure it&apos;s not just smart, but wise.
                                 </p>
                                 <p>
-                                    Today, we're proud to offer an AI assistant that doesn't just answer questions—it understands context,
+                                    Today, we&apos;re proud to offer an AI assistant that doesn&apos;t just answer questions—it understands context,
                                     learns from interactions, and adapts to help you achieve your goals more effectively than ever before.
                                 </p>
                             </div>
