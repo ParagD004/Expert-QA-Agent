@@ -38,8 +38,11 @@ if not api_key:
     print("Warning: OPENAI_API_KEY not found in environment variables")
 else:
     try:
-        # Simple OpenAI client initialization
-        client = openai.OpenAI(api_key=api_key)
+        # Simple OpenAI client initialization - remove any problematic parameters
+        client = openai.OpenAI(
+            api_key=api_key,
+            timeout=30.0  # Add timeout for better error handling
+        )
         print("OpenAI client initialized successfully")
     except Exception as e:
         print(f"Error initializing OpenAI client: {e}")
