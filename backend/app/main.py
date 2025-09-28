@@ -38,14 +38,17 @@ if not api_key:
     print("Warning: OPENAI_API_KEY not found in environment variables")
 else:
     try:
-        # Simple OpenAI client initialization - remove any problematic parameters
-        client = openai.OpenAI(
-            api_key=api_key,
-            timeout=30.0  # Add timeout for better error handling
-        )
-        print("OpenAI client initialized successfully")
+        # Initialize OpenAI client with proper error handling
+        client = openai.OpenAI(api_key=api_key)
+        
+        # Test the client with a simple call
+        test_response = client.models.list()
+        print("OpenAI client initialized and tested successfully")
+        
     except Exception as e:
         print(f"Error initializing OpenAI client: {e}")
+        print(f"API key length: {len(api_key) if api_key else 0}")
+        print(f"API key starts with: {api_key[:20] + '...' if api_key else 'None'}")
         client = None
 
 # Global variables
@@ -300,9 +303,21 @@ async def health_check():
 @app.get("/test")
 async def test_endpoint():
     api_key = os.getenv('OPENAI_API_KEY')
+    
+    # Test OpenAI client if available
+    openai_test_result = None
+    if client:
+        try:
+            # Simple test call
+            test_response = client.models.list()
+            openai_test_result = "OpenAI API call successful"
+        except Exception as e:
+            openai_test_result = f"OpenAI API call failed: {str(e)}"
+    
     return {
         "message": "Test endpoint working",
         "openai_available": client is not None,
+        "openai_test_result": openai_test_result,
         "api_key_present": api_key is not None,
         "api_key_length": len(api_key) if api_key else 0,
         "api_key_starts_with": api_key[:10] + "..." if api_key else "None",
