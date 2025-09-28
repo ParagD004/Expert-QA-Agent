@@ -38,15 +38,24 @@ if not api_key:
     print("Warning: OPENAI_API_KEY not found in environment variables")
 else:
     try:
-        # Initialize OpenAI client with proper error handling
-        client = openai.OpenAI(api_key=api_key)
+        # Initialize OpenAI client with minimal parameters
+        # Only pass supported parameters for the current version
+        client = openai.OpenAI(
+            api_key=api_key
+        )
+        print("OpenAI client initialized successfully")
         
         # Test the client with a simple call
-        test_response = client.models.list()
-        print("OpenAI client initialized and tested successfully")
+        try:
+            test_response = client.models.list()
+            print("OpenAI client tested successfully")
+        except Exception as test_error:
+            print(f"OpenAI client test failed: {test_error}")
+            # Don't set client to None here, as the initialization might still work
         
     except Exception as e:
         print(f"Error initializing OpenAI client: {e}")
+        print(f"OpenAI library version: {openai.__version__}")
         print(f"API key length: {len(api_key) if api_key else 0}")
         print(f"API key starts with: {api_key[:20] + '...' if api_key else 'None'}")
         client = None
