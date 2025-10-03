@@ -4,8 +4,10 @@ import glob
 import json
 from typing import List, Dict, Any
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
 import openai
 import math
@@ -336,3 +338,61 @@ async def test_endpoint():
         "documents_loaded": len(documents),
         "embeddings_created": len(embeddings)
     }
+# Static file serving for Next.js frontend
+# Mount static files (built Next.js app)
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Serve Next.js pages
+@app.get("/api/{path:path}")
+async def api_routes(path: str):
+    """Handle API routes - these should be handled by FastAPI endpoints above"""
+    raise HTTPException(status_code=404, detail="API endpoint not found")
+
+@app.get("/{path:path}")
+async def serve_frontend(request: Request, path: str = ""):
+    """Serve Next.js frontend for all non-API routes"""
+    
+    # Check if static directory exists
+    if not os.path.exists("static"):
+        return HTMLResponse("""
+        <html>
+            <body>
+                <h1>Full-Stack App</h1>
+                <p>Backend is running! Frontend static files not found.</p>
+                <p>API endpoints available at /chat, /health, /test</p>
+            </body>
+        </html>
+        """)
+    
+    # Handle root path
+    if path == "" or path == "/":
+        index_path = "static/public/index.html"
+        if os.path.exists(index_path):
+            return FileResponse(index_path)
+    
+    # Handle Next.js static files
+    static_file_path = f"static/public/{path}"
+    if os.path.exists(static_file_path):
+        return FileResponse(static_file_path)
+    
+    # Handle Next.js pages (fallback to index.html for client-side routing)
+    index_path = "static/public/index.html"
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    
+    # Fallback response
+    return HTMLResponse("""
+    <html>
+        <body>
+            <h1>Full-Stack QA Agent</h1>
+            <p>Backend API is running!</p>
+            <p>Available endpoints:</p>
+            <ul>
+                <li><a href="/health">/health</a> - Health check</li>
+                <li><a href="/test">/test</a> - Test endpoint</li>
+                <li>/chat - Chat API (POST)</li>
+            </ul>
+        </body>
+    </html>
+    """)

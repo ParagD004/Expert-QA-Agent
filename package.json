@@ -1,0 +1,18 @@
+{
+  "name": "qa-agent-fullstack",
+  "version": "1.0.0",
+  "description": "Full-stack QA Agent with Next.js frontend and FastAPI backend",
+  "scripts": {
+    "install:frontend": "cd frontend && npm ci",
+    "install:backend": "cd backend && pip install -r requirements.txt",
+    "build:frontend": "cd frontend && npm run build",
+    "build": "npm run install:frontend && npm run build:frontend && npm run install:backend",
+    "start": "cd backend && uvicorn app.main:app --host 0.0.0.0 --port 8000",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+    "setup": "mkdir -p backend/static && cp -r frontend/.next backend/static/ && cp -r frontend/public backend/static/"
+  },
+  "keywords": ["fastapi", "nextjs", "fullstack", "ai", "chatbot"],
+  "author": "Your Name",
+  "license": "MIT"
+}

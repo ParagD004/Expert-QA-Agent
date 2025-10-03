@@ -1,0 +1,9 @@
+services:
+  # Single Full-Stack Service
+  - type: web
+    name: qa-agent-fullstack
+    env: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false

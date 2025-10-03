@@ -48,7 +48,8 @@ const Chatbot = ({ open, onClose }) => {
       const requestBody = { question: input, session_id: "default" };
       console.log("Request body:", requestBody);
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://expert-qa-agent.onrender.com";
+      // For single service deployment, API is on the same domain
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
       const response = await fetch(`${apiUrl}/chat`, {
         method: "POST",
         headers: {
