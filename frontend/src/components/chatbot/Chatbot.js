@@ -48,7 +48,8 @@ const Chatbot = ({ open, onClose }) => {
       const requestBody = { question: input, session_id: "default" };
       console.log("Request body:", requestBody);
 
-      const response = await fetch("https://expert-qa-agent.onrender.com/chat", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://expert-qa-agent.onrender.com";
+      const response = await fetch(`${apiUrl}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -46,11 +46,19 @@ jspm_packages/
 # Yarn Integrity file
 .yarn-integrity
 
-# Environment variables
+# Environment variables - ALL .env files
 .env
+.env.*
+!.env.example
+!.env.template
+
+# Specific environment files
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
 
 # Vercel

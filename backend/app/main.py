@@ -20,8 +20,9 @@ app.add_middleware(
         "http://localhost:3000",  # local dev
         "https://expert-qa-agent-b9z8.vercel.app",  # current deployed frontend URL
         "https://qaagent.vercel.app",  # old deployed frontend URL
-        "https://expert-qa-agent.vercel.app"
+        "https://expert-qa-agent.vercel.app",
         "https://qaagent-dvyayri1m-parag-dharmiks-projects.vercel.app",  # old URL (keep for safety)
+        "https://qa-agent-frontend.onrender.com",  # new Render frontend URL
         "*"  # Allow all origins for now - you can restrict this later
     ],
     allow_credentials=True,
